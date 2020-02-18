@@ -56,5 +56,13 @@ describe('deepClone', () => {
       assert(a.xxx.yyy.zzz === a2.xxx.yyy.zzz)
       assert(a(1, 2) === a2(1, 2))
     })
+    it('能够有环存在的对象', () => {
+      const a = {name: 'xxx'}
+      a.self = a
+      const a2 = deepClone(a)
+      assert(a !== a2)
+      assert(a.name === a2.name)
+      assert(a.self !== a2.self)
+    })
   })
 })
