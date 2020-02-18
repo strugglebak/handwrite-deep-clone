@@ -26,4 +26,14 @@ describe('deepClone', () => {
     const symbol = Symbol()
     assert(deepClone(symbol) === symbol)
   })
+  describe('对象', () => {
+    it('能够复制普通对象', () => {
+      const a = {name: 'xxx', child: {name: 'yyy'}}
+      const a2 = deepClone(a)
+      assert(a !== a2)
+      assert(a.name === a2.name)
+      assert(a.child !== a2.child)
+      assert(a.child.name === a2.child.name)
+    })
+  })
 })
