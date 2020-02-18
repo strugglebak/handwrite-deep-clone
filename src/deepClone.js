@@ -16,6 +16,8 @@ function deepClone(source) {
           // 使用 eval(source.toString()) 这种方式不行
           return source.apply(this, arguments)
         }
+      } else if (source instanceof RegExp) {
+        dist = new RegExp(source.source, source.flags)
       } else {
         dist = new Object()
       }
