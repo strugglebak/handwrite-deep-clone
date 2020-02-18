@@ -102,5 +102,15 @@ describe('deepClone', () => {
       assert(a.xxx.yyy.zzz === a2.xxx.yyy.zzz)
       assert(a.getTime() === a2.getTime())
     })
+    it('不复制原型上的属性', () => {
+      const a = Object.create({name: 'xxx'})
+      a.xxx = {yyy: {zzz: 1}}
+      const a2 = deepClone(a)
+      assert(a !== a2)
+      assert(a.xxx !== a2.xxx)
+      assert(a.xxx.yyy !== a2.xxx.yyy)
+      assert(a.xxx.yyy.zzz === a2.xxx.yyy.zzz)
+      assert.isFalse('name' in a2)
+    })
   })
 })

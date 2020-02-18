@@ -27,8 +27,11 @@ function deepClone(source) {
       // 不然会一直 deepClone 而保存不了
       cache.push([source, dist])
       for(let key in source) {
-        // 因为不只是一层，所以这里要用递归
-        dist[key] = deepClone(source[key])
+        // 不考虑 __proto__ 上的
+        if (source.hasOwnProperty(key)) {
+          // 因为不只是一层，所以这里要用递归
+          dist[key] = deepClone(source[key])
+        }
       }
       return dist
     }
