@@ -64,5 +64,21 @@ describe('deepClone', () => {
       assert(a.name === a2.name)
       assert(a.self !== a2.self)
     })
+    xit('不会爆栈', () => {
+      // 解决的方式就是用一个数组保存起来，将一个树形结构拍平
+      // 整体来讲就是把 tree 变成 array
+      // 然后对每个属性再次按照顺序拷贝
+      const a = {}
+      let b = a
+      for(let i = 0; i < 20000; i++) {
+        b.child = {
+          child: null
+        }
+        b = b.child
+      }
+      const a2 = deepClone(a)
+      assert(a !== a2)
+      assert(a.child !== a2.child)
+    })
   })
 })
